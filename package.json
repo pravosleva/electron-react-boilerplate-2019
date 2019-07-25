@@ -1,0 +1,22 @@
+{
+  "name": "electron-react-boilerplate-2019",
+  "version": "1.0.0",
+  "description": "A minimal Electron + React application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-react-boilerplate-2019",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^5.0.6"
+  }
+}
