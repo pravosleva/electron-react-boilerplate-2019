@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-react-boilerplate-2019",
+  "repository": "https://github.com/pravosleva/electron-react-boilerplate-2019",
   "keywords": [
     "Electron",
     "quick",
