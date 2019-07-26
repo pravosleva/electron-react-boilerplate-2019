@@ -4,7 +4,10 @@
   "description": "A minimal Electron + React application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "build-client": "cd frontend/ && yarn build",
+    "prod-start": "NODE_ENV=production electron .",
+    "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
+    "dev": "cd frontend/ && yarn start & NODE_ENV=development electron ."
   },
   "repository": "https://github.com/pravosleva/electron-react-boilerplate-2019",
   "keywords": [

@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const dev = process.env.NODE_ENV === 'development';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -16,8 +17,12 @@ function createWindow () {
     }
   })
 
-  // and load the index.html of the app.
-  mainWindow.loadFile('./frontend/build/index.html')
+  if (!dev) {
+    // and load the index.html of the app.
+    mainWindow.loadFile('./frontend/build/index.html');
+  } else {
+    mainWindow.loadURL('http://localhost:3000');
+  }
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

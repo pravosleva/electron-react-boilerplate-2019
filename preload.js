@@ -5,3 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //   document.getElementById(`${versionType}-version`).innerText = process.versions[versionType]
   // }
 })
+
+const externalFunction = () => 5;
+
+window.externalFunction = externalFunction;
