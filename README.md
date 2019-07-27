@@ -3,16 +3,16 @@
 ## How to use
 
 ### `yarn install-all`
-Electron side will be installed then frontend side will be installed.
+Electron side deps will be installed then frontend side deps will be installed.
 
 ### `yarn dev`
 You can use CRA dev mode in electron app. Electron app BrowserWindow will be created when `http://localhost:3000` will be available.
 
 ### `yarn fresh-prod-start`
-Fresh frontend will be built to `frontend/build` then be used.
+Fresh frontend product will be built to `frontend/build` then be used.
 
 ### `yarn start`
-Old product will be used in `frontend/build`.
+Old buld product will be used in `frontend/build`.
 
 ## How this repository was created
 
