@@ -1,5 +1,14 @@
 # electron-react-boilerplate-2019
 
+### `yarn dev`
+You can use CRA dev mode in electron app.
+
+### `yarn fresh-prod-start`
+Fresh frontend will be built to `frontend/build` then be used.
+
+### `yarn start`
+Old product will be used in `frontend/build`.
+
 ## How this repository was created
 
 **STEP 1:** `electron-quick-start`
@@ -25,12 +34,3 @@ if (!dev) {
   mainWindow.loadURL('http://localhost:3000');
 }
 ```
-
-### `yarn dev`
-You can use CRA dev mode in electron app.
-
-### `yarn fresh-prod-start`
-Fresh build product will be built to `frontend/build` then be used.
-
-### `yarn prod-start`
-Old build product will be used in `frontend/build`.
