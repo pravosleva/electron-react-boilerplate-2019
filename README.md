@@ -1,5 +1,10 @@
 # electron-react-boilerplate-2019
 
+## How to use
+
+### `yarn install-all`
+Electron side will be installed then frontend side will be installed.
+
 ### `yarn dev`
 You can use CRA dev mode in electron app.
 
