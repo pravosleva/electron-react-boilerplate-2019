@@ -9,7 +9,6 @@
     "start": "NODE_ENV=production electron .",
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
     "frontend-dev": "yarn --cwd ./frontend dev",
-
     "dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",
     "dev-1": "yarn frontend-dev && NODE_ENV=development electron ."
   },
@@ -26,5 +25,8 @@
   "devDependencies": {
     "concurrently": "^4.1.1",
     "electron": "^5.0.6"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
   }
 }
