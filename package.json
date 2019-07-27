@@ -8,8 +8,10 @@
     "build-client": "cd frontend/ && yarn build",
     "start": "NODE_ENV=production electron .",
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
-    "frontend-dev": "cd frontend/ && yarn dev",
-    "dev": "yarn frontend-dev | NODE_ENV=development electron ."
+    "frontend-dev": "yarn --cwd ./frontend dev",
+
+    "dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",
+    "dev-1": "yarn frontend-dev && NODE_ENV=development electron ."
   },
   "repository": "https://github.com/pravosleva/electron-react-boilerplate-2019",
   "keywords": [
@@ -22,6 +24,7 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
+    "concurrently": "^4.1.1",
     "electron": "^5.0.6"
   }
 }

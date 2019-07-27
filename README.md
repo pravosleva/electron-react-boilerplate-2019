@@ -6,7 +6,7 @@
 Electron side will be installed then frontend side will be installed.
 
 ### `yarn dev`
-You can use CRA dev mode in electron app.
+You can use CRA dev mode in electron app. **But!** Need to reload the app when `http://localhost:3000` will be ready. _We're working on it..._
 
 ### `yarn fresh-prod-start`
 Fresh frontend will be built to `frontend/build` then be used.
