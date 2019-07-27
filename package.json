@@ -4,8 +4,8 @@
   "description": "A minimal Electron + React application",
   "main": "main.js",
   "scripts": {
-    "install-all": "yarn install && cd frontend/ && yarn install",
-    "build-client": "cd frontend/ && yarn build",
+    "install-all": "yarn install && yarn --cwd ./frontend install",
+    "build-client": "yarn --cwd ./frontend build",
     "start": "NODE_ENV=production electron .",
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
     "frontend-dev": "yarn --cwd ./frontend dev",
