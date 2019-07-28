@@ -6,18 +6,20 @@
 Electron side deps will be installed then frontend side deps will be installed.
 
 ### `yarn dev`
-You can use CRA dev mode in electron app. Electron app BrowserWindow will be created when `http://localhost:3000` will be available.
+You can use hot reload dev mode for frontend react app in this electron app. Electron app BrowserWindow will be created when `http://localhost:3000` will be available.
 
 ### `yarn fresh-prod-start`
-Fresh frontend product will be built to `frontend/build` then be used.
+Fresh frontend will be built to `frontend/build` then will be used.
 
 ### `yarn start`
-Old buld product will be used in `frontend/build`.
+Old build will be used in `frontend/build`.
 
 ### `yarn dist`
-You can run `$ yarn dist` (to package in a distributable format (e.g. dmg, windows installer, deb package)) or `$ yarn pack` (only generates the package directory without really packaging it. This is useful for testing purposes). See also [electron-builder](https://www.electron.build/).
+You can run `$ yarn dist` (to package in a distributable format (e.g. dmg, windows installer, deb package)) or `$ yarn pack` (only generates the package directory without really packaging it. This is useful for testing purposes). See also [electron-builder](https://www.electron.build/). **Note!** to build rpm, executable rpmbuild is required, please install: `$ sudo apt-get install rpm`
 
-To ensure your native dependencies are always matched electron version, simply add script `"postinstall": "electron-builder install-app-deps"` to your `package.json`.
+See result in `/release`.
+
+To ensure your native dependencies are always matched with electron version, simply add script `"postinstall": "electron-builder install-app-deps"` to your `package.json`.
 
 ## How this repository was created
 
@@ -31,8 +33,8 @@ To ensure your native dependencies are always matched electron version, simply a
 
 - `$ create-react-app frontend && cd frontend`
 - Add `"homepage": "./"` to `frontend/package.json`
-- Replace `mainWindow.loadFile('./index.html')` to `mainWindow.loadFile('./frontend/build/index.html')` in `main.js`
-- Coment all in `preload.js`
+- Replace `mainWindow.loadFile('./index.html')` with `mainWindow.loadFile('./frontend/build/index.html')` in `main.js`
+- Comment out everything in `preload.js`
 - Add to `fontend/package.json` scripts: `"dev": "BROWSER=none react-scripts start",`
 - Add to `package.json` scripts: `"dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",`
 - Add changes to `main.js`:
@@ -54,7 +56,7 @@ function createWindow () {
   // ...
 }
 ```
-- Add file `polling-to-frontend.js` for have ability to check is `http://localhost:3000` available.
+- Add file `polling-to-frontend.js` to have ability to check if `http://localhost:3000` available.
 - Add code to `main.js` _(WAY 1 should be replaced to WAY 2)_.
 ```javascript
 const createPollingByConditions = require('./polling-to-frontend').createPollingByConditions;
