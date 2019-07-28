@@ -30,9 +30,7 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadFile('./frontend/build/index.html');
   } else {
-    // mainWindow.webContents.openDevTools();
     mainWindow.loadURL('http://localhost:3000');
-    // Open the DevTools.
     mainWindow.webContents.openDevTools();
   }
 
@@ -45,13 +43,6 @@ function createWindow () {
   })
 }
 
-// WAY 1: Without checking conditions.
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-// app.on('ready', createWindow);
-
-// WAY 2: Need to check something conditions.
 // I'm gonna to check is CONFIG.FRONTEND_DEV_URL resource available then create window...
 app.on('ready', () => {
   if (dev) {
@@ -62,7 +53,6 @@ app.on('ready', () => {
       callbackAsResolve: () => {
         console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`);
         connectedToFrontend = true;
-
         createWindow();
       },
       toBeOrNotToBe: () => !connectedToFrontend, // Need to reconnect again

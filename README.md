@@ -14,15 +14,20 @@ Fresh frontend product will be built to `frontend/build` then be used.
 ### `yarn start`
 Old buld product will be used in `frontend/build`.
 
+### `yarn dist`
+You can run `$ yarn dist` (to package in a distributable format (e.g. dmg, windows installer, deb package)) or `$ yarn pack` (only generates the package directory without really packaging it. This is useful for testing purposes). See also [electron-builder](https://www.electron.build/).
+
+To ensure your native dependencies are always matched electron version, simply add script `"postinstall": "electron-builder install-app-deps"` to your `package.json`.
+
 ## How this repository was created
 
-**STEP 1:** `electron-quick-start`
+**STEP 1:** [electron-quick-start](https://github.com/electron/electron-quick-start)
 
 - Clone the Quick Start repository `$ git clone https://github.com/electron/electron-quick-start`
 - Go into the repository `$ cd electron-quick-start`
 - Install the dependencies `$ npm install` (and run `npm start`)
 
-**STEP 2:** CRA
+**STEP 2:** [create-react-app](https://github.com/facebook/create-react-app)
 
 - `$ create-react-app frontend && cd frontend`
 - Add `"homepage": "./"` to `frontend/package.json`
@@ -91,3 +96,5 @@ app.on('ready', () => {
   }
 });
 ```
+
+**STEP 3:** Add some scripts to `package.json` if necessary.

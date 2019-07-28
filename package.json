@@ -10,7 +10,16 @@
     "fresh-prod-start": "yarn build-client && NODE_ENV=production yarn start",
     "frontend-dev": "yarn --cwd ./frontend dev",
     "dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",
-    "dev-1": "yarn frontend-dev && NODE_ENV=development electron ."
+    "dev-1": "yarn frontend-dev && NODE_ENV=development electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "productName": "Electron React Boilerplate 2019",
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "repository": "https://github.com/pravosleva/electron-react-boilerplate-2019",
   "keywords": [
@@ -18,13 +27,16 @@
     "quick",
     "start",
     "tutorial",
-    "demo"
+    "demo",
+    "hot",
+    "reload"
   ],
-  "author": "GitHub",
+  "author": "Den Pol",
   "license": "CC0-1.0",
   "devDependencies": {
     "concurrently": "^4.1.1",
-    "electron": "^5.0.6"
+    "electron": "^5.0.6",
+    "electron-builder": "^21.1.5"
   },
   "dependencies": {
     "axios": "^0.19.0"
