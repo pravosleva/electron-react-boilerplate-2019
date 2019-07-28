@@ -98,5 +98,6 @@ app.on('ready', () => {
   }
 });
 ```
+- Remove `renderer.js` and `index.html` from main directory.
 
 **STEP 3:** Add some scripts to `package.json` if necessary.
