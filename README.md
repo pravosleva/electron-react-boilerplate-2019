@@ -74,7 +74,7 @@ let connectedToFrontend = false;
 // app.on('ready', createWindow);
 
 // WAY 2: Need to check something conditions.
-// I'm gonna to check is CONFIG.FRONTEND_DEV_URL resource available then create window...
+// I'm gonna check if CONFIG.FRONTEND_DEV_URL resource available then create window...
 app.on('ready', () => {
   if (dev) {
     createPollingByConditions ({
