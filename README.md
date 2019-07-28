@@ -32,8 +32,9 @@ Old buld product will be used in `frontend/build`.
 - Add to `package.json` scripts: `"dev": "cd frontend/ && yarn start & NODE_ENV=development electron .",`
 - Add changes to `main.js`:
 ```javascript
+const dev = process.env.NODE_ENV === 'development';
+
 if (!dev) {
-  // and load the index.html of the app.
   mainWindow.loadFile('./frontend/build/index.html');
 } else {
   mainWindow.loadURL('http://localhost:3000');
@@ -42,8 +43,6 @@ if (!dev) {
 - Add file `polling-to-frontend.js` for have ability to check is `http://localhost:3000` available.
 - Add code to `main.js` _(WAY 1 should be replaced to WAY 2)_.
 ```javascript
-const axios = require('axios');
-
 const createPollingByConditions = require('./polling-to-frontend').createPollingByConditions;
 const CONFIG = {
   FRONTEND_DEV_URL: 'http://localhost:3000',
@@ -60,24 +59,26 @@ let connectedToFrontend = false;
 
 // WAY 2: Need to check something conditions.
 // I'm gonna to check is CONFIG.FRONTEND_DEV_URL resource available then create window...
-if (dev) {
-  createPollingByConditions ({
-    url: CONFIG.FRONTEND_DEV_URL,
-    method: CONFIG.FRONTERN_FIRST_CONNECT_METHOD,
-    toBeOrNotToBe: () => !connectedToFrontend,
-    interval: CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL,
-    callbackAsResolve: () => {
-      console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`);
-      connectedToFrontend = true;
+app.on('ready', () => {
+  if (dev) {
+    createPollingByConditions ({
+      url: CONFIG.FRONTEND_DEV_URL,
+      method: CONFIG.FRONTERN_FIRST_CONNECT_METHOD,
+      interval: CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL,
+      callbackAsResolve: () => {
+        console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`);
+        connectedToFrontend = true;
 
-      createWindow();
-    },
-    callbackAsReject: () => {
-      console.log(`FUCKUP! ${CONFIG.FRONTEND_DEV_URL} IS NOT AVAILABLE YET!`);
-      console.log(`TRYING TO RECONNECT in ${CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL / 1000} seconds...`);
-    }
-  });
-} else {
-  app.on('ready', createWindow);
-}
+        createWindow();
+      },
+      toBeOrNotToBe: () => !connectedToFrontend, // Need to reconnect again
+      callbackAsReject: () => {
+        console.log(`FUCKUP! ${CONFIG.FRONTEND_DEV_URL} IS NOT AVAILABLE YET!`);
+        console.log(`TRYING TO RECONNECT in ${CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL / 1000} seconds...`);
+      }
+    });
+  } else {
+    createWindow();
+  }
+});
 ```

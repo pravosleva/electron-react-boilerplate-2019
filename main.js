@@ -2,7 +2,6 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const dev = process.env.NODE_ENV === 'development';
-const axios = require('axios');
 
 const createPollingByConditions = require('./polling-to-frontend').createPollingByConditions;
 const CONFIG = {
@@ -19,7 +18,7 @@ let connectedToFrontend = false;
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 900,
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -33,16 +32,9 @@ function createWindow () {
   } else {
     // mainWindow.webContents.openDevTools();
     mainWindow.loadURL('http://localhost:3000');
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
   }
-
-  // if (true) {
-  //   mainWindow.once('ready-to-show', () => {
-  //     mainWindow.show();
-  //   });
-  // }
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -61,26 +53,28 @@ function createWindow () {
 
 // WAY 2: Need to check something conditions.
 // I'm gonna to check is CONFIG.FRONTEND_DEV_URL resource available then create window...
-if (dev) {
-  createPollingByConditions ({
-    url: CONFIG.FRONTEND_DEV_URL,
-    method: CONFIG.FRONTERN_FIRST_CONNECT_METHOD,
-    toBeOrNotToBe: () => !connectedToFrontend,
-    interval: CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL,
-    callbackAsResolve: () => {
-      console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`);
-      connectedToFrontend = true;
+app.on('ready', () => {
+  if (dev) {
+    createPollingByConditions ({
+      url: CONFIG.FRONTEND_DEV_URL,
+      method: CONFIG.FRONTERN_FIRST_CONNECT_METHOD,
+      interval: CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL,
+      callbackAsResolve: () => {
+        console.log(`SUCCESS! CONNECTED TO ${CONFIG.FRONTEND_DEV_URL}`);
+        connectedToFrontend = true;
 
-      createWindow();
-    },
-    callbackAsReject: () => {
-      console.log(`FUCKUP! ${CONFIG.FRONTEND_DEV_URL} IS NOT AVAILABLE YET!`);
-      console.log(`TRYING TO RECONNECT in ${CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL / 1000} seconds...`);
-    }
-  });
-} else {
-  app.on('ready', createWindow);
-}
+        createWindow();
+      },
+      toBeOrNotToBe: () => !connectedToFrontend, // Need to reconnect again
+      callbackAsReject: () => {
+        console.log(`FUCKUP! ${CONFIG.FRONTEND_DEV_URL} IS NOT AVAILABLE YET!`);
+        console.log(`TRYING TO RECONNECT in ${CONFIG.FRONTEND_FIRST_CONNECT_INTERVAL / 1000} seconds...`);
+      }
+    });
+  } else {
+    createWindow();
+  }
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
