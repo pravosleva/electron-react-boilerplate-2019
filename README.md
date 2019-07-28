@@ -34,7 +34,7 @@ To ensure your native dependencies are always matched electron version, simply a
 - Replace `mainWindow.loadFile('./index.html')` to `mainWindow.loadFile('./frontend/build/index.html')` in `main.js`
 - Coment all in `preload.js`
 - Add to `fontend/package.json` scripts: `"dev": "BROWSER=none react-scripts start",`
-- Add to `package.json` scripts: `"dev": "cd frontend/ && yarn start & NODE_ENV=development electron .",`
+- Add to `package.json` scripts: `"dev": "concurrently --kill-others \"yarn frontend-dev\" \"NODE_ENV=development electron .\"",`
 - Add changes to `main.js`:
 ```javascript
 const dev = process.env.NODE_ENV === 'development';
