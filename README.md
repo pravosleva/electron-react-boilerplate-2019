@@ -34,10 +34,19 @@ Old buld product will be used in `frontend/build`.
 ```javascript
 const dev = process.env.NODE_ENV === 'development';
 
-if (!dev) {
-  mainWindow.loadFile('./frontend/build/index.html');
-} else {
-  mainWindow.loadURL('http://localhost:3000');
+// ...
+
+function createWindow () {
+
+  // ...
+
+  if (!dev) {
+    mainWindow.loadFile('./frontend/build/index.html');
+  } else {
+    mainWindow.loadURL('http://localhost:3000');
+  }
+
+  // ...
 }
 ```
 - Add file `polling-to-frontend.js` for have ability to check is `http://localhost:3000` available.
