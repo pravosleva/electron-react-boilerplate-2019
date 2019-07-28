@@ -30,7 +30,7 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadFile('./frontend/build/index.html');
   } else {
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL(CONFIG.FRONTEND_DEV_URL);
     mainWindow.webContents.openDevTools();
   }
 
