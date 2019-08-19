@@ -1,7 +1,5 @@
 # electron-react-boilerplate-2019
 
-## How to use
-
 ### `yarn install-all`
 Electron side deps will be installed then frontend side deps will be installed.
 
@@ -21,6 +19,14 @@ See result in `/release`.
 
 To ensure your native dependencies are always matched with electron version, simply add script `"postinstall": "electron-builder install-app-deps"` to your `package.json`.
 
+## How to make fresh CRA project
+
+- `$ rm -rf ./frontend`
+- `$ create-react-app frontend`
+- Needs edits in `package.json` like this: `"dev": "BROWSER=none react-scripts start"`
+- Add `"homepage": "./"` to `./frontend/package.json` for have relative paths in `./frontend/build/index.html`
+- `./frontend/.env` with `SKIP_PREFLIGHT_CHECK=true` if necessary.
+
 ## How this repository was created
 
 **STEP 1:** [electron-quick-start](https://github.com/electron/electron-quick-start)
@@ -32,7 +38,7 @@ To ensure your native dependencies are always matched with electron version, sim
 **STEP 2:** [create-react-app](https://github.com/facebook/create-react-app)
 
 - `$ create-react-app frontend && cd frontend`
-- Add `"homepage": "./"` to `frontend/package.json`
+- Add `"homepage": "./"` to `frontend/package.json` for have relative paths in `./frontend/build/index.html`
 - Replace `mainWindow.loadFile('./index.html')` with `mainWindow.loadFile('./frontend/build/index.html')` in `main.js`
 - Comment out everything in `preload.js`
 - Add to `fontend/package.json` scripts: `"dev": "BROWSER=none react-scripts start",`
